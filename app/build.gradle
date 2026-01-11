@@ -1,0 +1,52 @@
+plugins {
+    alias(libs.plugins.android.library)
+}
+
+android {
+    namespace 'com.github.gustavlindberg99.androidtimer'
+    compileSdk {
+        version = release(36)
+    }
+
+    defaultConfig {
+        minSdk 21
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+}
+
+tasks.register('jar', Jar) {
+    from { tasks.getByName("compileReleaseJavaWithJavac").destinationDirectory }
+}
+
+dependencies {
+    implementation libs.androidx.appcompat
+    androidTestImplementation libs.androidx.junit
+    androidTestImplementation libs.androidx.espresso.core
+}
+
+afterEvaluate {
+    apply plugin: 'maven-publish'
+    publishing {
+        publications {
+            release(MavenPublication) {
+                from components.findByName('release')
+                groupId = 'com.github.gustavlindberg99'
+                artifactId = 'androidtimer'
+                version = '1.0.0'
+                artifact(jar)
+            }
+        }
+    }
+}
