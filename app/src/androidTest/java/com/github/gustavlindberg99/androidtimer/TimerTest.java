@@ -2,6 +2,7 @@ package com.github.gustavlindberg99.androidtimer;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 
 import androidx.test.ext.junit.runners.AndroidJUnit4;
@@ -107,5 +108,29 @@ public final class TimerTest {
                 2, numberOfRuns.get());
         assertFalse("The timer should no longer be running.",
                 timer.isRunning());
+    }
+
+    @Test
+    public void testAlreadyRunningExceptions() {
+        final Timer timer = new Timer();
+        final int oneSecond = 1000;
+
+        timer.setTimeout(() -> {}, oneSecond);
+
+        //Test that an exception is thrown when the timer is already running.
+        assertThrows(
+                IllegalStateException.class,
+                () -> timer.setTimeout(() -> {}, oneSecond)
+        );
+        assertThrows(
+                IllegalStateException.class,
+                () -> timer.setInterval(() -> {}, oneSecond)
+        );
+
+        //Test that no exception is thrown when the timer is not running.
+        timer.stop();
+        timer.setTimeout(() -> {}, oneSecond);
+        timer.stop();
+        timer.setInterval(() -> {}, oneSecond);
     }
 }

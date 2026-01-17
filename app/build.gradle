@@ -44,7 +44,7 @@ afterEvaluate {
                 from components.findByName('release')
                 groupId = 'com.github.gustavlindberg99'
                 artifactId = 'androidtimer'
-                version = '1.0.0'
+                version = '1.0.1'
                 artifact(jar)
             }
         }

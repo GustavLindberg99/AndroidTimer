@@ -45,6 +45,17 @@ public final class Timer {
     }
 
     /**
+     * Schedules a one-time task to be executed after a specified delay. This overload exists so that it can be called from Kotlin without `.toLong()`.
+     *
+     * @param callback     The task to be executed.
+     * @param milliseconds The delay in milliseconds.
+     * @throws IllegalStateException if the timer is already running.
+     */
+    public void setTimeout(@NonNull Runnable callback, int milliseconds) {
+        this.setTimeout(callback, (long) milliseconds);
+    }
+
+    /**
      * Schedules a one-time task to be executed after a specified delay. Only available in API 26 and above.
      *
      * @param callback The task to be executed.
@@ -74,6 +85,17 @@ public final class Timer {
             }
         };
         this._handler.postDelayed(this._callback, milliseconds);
+    }
+
+    /**
+     * Schedules a recurring task to be executed with a specified interval. The task is first executed `milliseconds` milliseconds after this method is called. This overload exists so that it can be called from Kotlin without `.toLong()`.
+     *
+     * @param callback     The task to be executed.
+     * @param milliseconds The interval in milliseconds.
+     * @throws IllegalStateException if the timer is already running.
+     */
+    public void setInterval(@NonNull Runnable callback, int milliseconds) {
+        this.setInterval(callback, (long) milliseconds);
     }
 
     /**

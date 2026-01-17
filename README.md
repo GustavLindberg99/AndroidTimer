@@ -23,7 +23,7 @@ And add the following to `app/build.gradle`:
 ```gradle
 dependencies {
     //...
-    implementation 'com.github.gustavlindberg99:androidtimer:1.0.0'
+    implementation 'com.github.gustavlindberg99:androidtimer:1.0.1'
 }
 ```
 
@@ -70,6 +70,10 @@ timer.setInterval({println("Hello World!")}, 10000)
 
     Schedules a one-time task to be executed after a specified delay. Throws IllegalStateException if the timer is already running.
 
+- `void setTimeout(@NonNull Runnable callback, int milliseconds)`
+
+    Schedules a one-time task to be executed after a specified delay. Throws IllegalStateException if the timer is already running. This overload exists so that it can be called from Kotlin without `.toLong()`.
+
 - `void setTimeout(@NonNull Runnable callback, @NonNull Duration duration)`
 
     Schedules a one-time task to be executed after a specified delay. Throws IllegalStateException if the timer is already running. This overload is only available in API 26 and above.
@@ -77,6 +81,10 @@ timer.setInterval({println("Hello World!")}, 10000)
 - `void setInterval(@NonNull Runnable callback, long milliseconds)`
 
     Schedules a recurring task to be executed with a specified interval. The task is first executed `interval` milliseconds after this method is called. Throws IllegalStateException if the timer is already running.
+
+- `void setInterval(@NonNull Runnable callback, int milliseconds)`
+
+    Schedules a recurring task to be executed with a specified interval. The task is first executed `interval` milliseconds after this method is called. Throws IllegalStateException if the timer is already running. This overload exists so that it can be called from Kotlin without `.toLong()`.
 
 - `void setInterval(@NonNull Runnable callback, @NonNull Duration duration)`
 
